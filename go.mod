@@ -1,4 +1,4 @@
-module github.com/kchtrans/check
+module github.com/kchtrans/go-check
 
 go 1.26
 
