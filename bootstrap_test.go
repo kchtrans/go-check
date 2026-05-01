@@ -16,7 +16,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/kchtrans/check"
+	"github.com/kchtrans/go-check"
 )
 
 type BootstrapS struct{}

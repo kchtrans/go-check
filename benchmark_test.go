@@ -5,7 +5,7 @@ package check_test
 import (
 	"time"
 
-	. "github.com/kchtrans/check"
+	. "github.com/kchtrans/go-check"
 )
 
 var benchmarkS = Suite(&BenchmarkS{})

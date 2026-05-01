@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"runtime"
 
-	"github.com/kchtrans/check"
+	"github.com/kchtrans/go-check"
 )
 
 type CheckersS struct{}

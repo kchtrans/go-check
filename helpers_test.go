@@ -9,7 +9,7 @@ import (
 	"runtime"
 	"sync"
 
-	"github.com/kchtrans/check"
+	"github.com/kchtrans/go-check"
 )
 
 var helpersS = check.Suite(&HelpersS{})

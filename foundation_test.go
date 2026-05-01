@@ -13,7 +13,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/kchtrans/check"
+	"github.com/kchtrans/go-check"
 )
 
 // -----------------------------------------------------------------------

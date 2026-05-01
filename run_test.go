@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"sync"
 
-	. "github.com/kchtrans/check"
+	. "github.com/kchtrans/go-check"
 )
 
 var runnerS = Suite(&RunS{})

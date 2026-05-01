@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"runtime"
 
-	. "github.com/kchtrans/check"
+	. "github.com/kchtrans/go-check"
 )
 
 var _ = Suite(&reporterS{})

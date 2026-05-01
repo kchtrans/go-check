@@ -3,7 +3,7 @@
 package check_test
 
 import (
-	. "github.com/kchtrans/check"
+	. "github.com/kchtrans/go-check"
 )
 
 // -----------------------------------------------------------------------
