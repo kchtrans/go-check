@@ -8,11 +8,12 @@ package check_test
 
 import (
 	"fmt"
-	"gopkg.in/check.v1"
 	"log"
 	"os"
 	"regexp"
 	"strings"
+
+	"github.com/kchtrans/check"
 )
 
 // -----------------------------------------------------------------------
@@ -99,7 +100,7 @@ func (s *FoundationS) TestFailureHeader(c *check.C) {
 		"-----------------------------------\n"+
 		"FAIL: check_test.go:%d: FailHelper.TestLogAndFail\n",
 		failHelper.testLine)
-	if strings.Index(output.value, header) == -1 {
+	if !strings.Contains(output.value, header) {
 		c.Errorf(""+
 			"Failure didn't print a proper header.\n"+
 			"... Got:\n%s... Expected something with:\n%s",

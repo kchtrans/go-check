@@ -14,8 +14,9 @@ package check_test
 
 import (
 	"fmt"
-	"gopkg.in/check.v1"
 	"strings"
+
+	"github.com/kchtrans/check"
 )
 
 type BootstrapS struct{}
@@ -64,7 +65,7 @@ func (s *BootstrapS) TestLogfAndGetTestLog(c *check.C) {
 func (s *BootstrapS) TestRunShowsErrors(c *check.C) {
 	output := String{}
 	check.Run(&FailHelper{}, &check.RunConf{Output: &output})
-	if strings.Index(output.value, "Expected failure!") == -1 {
+	if !strings.Contains(output.value, "Expected failure!") {
 		critical(fmt.Sprintf("RunWithWriter() output did not contain the "+
 			"expected failure! Got: %#v",
 			output.value))
@@ -74,7 +75,7 @@ func (s *BootstrapS) TestRunShowsErrors(c *check.C) {
 func (s *BootstrapS) TestRunDoesntShowSuccesses(c *check.C) {
 	output := String{}
 	check.Run(&SuccessHelper{}, &check.RunConf{Output: &output})
-	if strings.Index(output.value, "Expected success!") != -1 {
+	if strings.Contains(output.value, "Expected success!") {
 		critical(fmt.Sprintf("RunWithWriter() output contained a successful "+
 			"test! Got: %#v",
 			output.value))

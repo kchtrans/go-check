@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"runtime"
 
-	"gopkg.in/check.v1"
+	"github.com/kchtrans/check"
 )
 
 type CheckersS struct{}
@@ -22,7 +22,7 @@ func testInfo(c *check.C, checker check.Checker, name string, paramNames []strin
 	}
 }
 
-func testCheck(c *check.C, checker check.Checker, result bool, error string, params ...interface{}) ([]interface{}, []string) {
+func testCheck(c *check.C, checker check.Checker, result bool, error string, params ...any) ([]any, []string) {
 	info := checker.Info()
 	if len(params) != len(info.Params) {
 		c.Fatalf("unexpected param count in test; expected %d got %d", len(info.Params), len(params))
@@ -221,9 +221,10 @@ func (s *CheckersS) TestPanics(c *check.C) {
 	c.Assert(params[0], check.ErrorMatches, "KABOOM")
 	c.Assert(names[0], check.Equals, "panic")
 
-	// Verify a nil panic
-	testCheck(c, check.Panics, true, "", func() { panic(nil) }, nil)
-	testCheck(c, check.Panics, false, "", func() { panic(nil) }, "NOPE")
+	// Verify a nil panic (recover() is nil; avoid literal panic(nil) — SA6023).
+	var nilPanic any
+	testCheck(c, check.Panics, true, "", func() { panic(nilPanic) }, nil)
+	testCheck(c, check.Panics, false, "", func() { panic(nilPanic) }, "NOPE")
 }
 
 func (s *CheckersS) TestPanicMatches(c *check.C) {
@@ -247,8 +248,9 @@ func (s *CheckersS) TestPanicMatches(c *check.C) {
 	c.Assert(params[0], check.Equals, "KABOOM")
 	c.Assert(names[0], check.Equals, "panic")
 
-	// Verify a nil panic
-	testCheck(c, check.PanicMatches, false, "Panic value is not a string or an error", func() { panic(nil) }, "")
+	// Verify a nil panic (recover() is nil; avoid literal panic(nil) — SA6023).
+	var nilPanic any
+	testCheck(c, check.PanicMatches, false, "Panic value is not a string or an error", func() { panic(nilPanic) }, "")
 }
 
 func (s *CheckersS) TestFitsTypeOf(c *check.C) {

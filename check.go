@@ -2,8 +2,7 @@
 //
 // For details about the project, see:
 //
-//     http://labix.org/gocheck
-//
+//	http://labix.org/gocheck
 package check
 
 import (
@@ -11,7 +10,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
@@ -143,7 +141,7 @@ func (td *tempDir) newPath() string {
 	td.Lock()
 	defer td.Unlock()
 	if td.path == "" {
-		path, err := ioutil.TempDir("", "check-")
+		path, err := os.MkdirTemp(".", "check-")
 		if err != nil {
 			panic("Couldn't create temporary directory: " + err.Error())
 		}
@@ -160,7 +158,7 @@ func (td *tempDir) removeAll() {
 	if td.path != "" {
 		err := os.RemoveAll(td.path)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "WARNING: Error cleaning up temporaries: "+err.Error())
+			fmt.Fprintln(os.Stderr, "WARNING: Error cleaning up temporaries:", err.Error())
 		}
 	}
 }
@@ -621,7 +619,7 @@ func (runner *suiteRunner) run() *Result {
 						break
 					}
 				}
-			} else if c != nil && c.status() == skippedSt {
+			} else if c.status() == skippedSt {
 				runner.skipTests(skippedSt, runner.tests)
 			} else {
 				runner.skipTests(missedSt, runner.tests)
